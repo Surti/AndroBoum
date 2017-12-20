@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AndroBoum</string>
+    <string name="title">L\'application qui fait boum !</string>
+    <string name="Copyright">\@Quentin Lacoste - 2017</string>
+    <string name="Start">DEMARER</string>
+    <string name="action_logout">Deconnexion</string>
+    <string name="action_settings">Options</string>
+    <string name="imageUploaded">Image telecharge</string>
+    <string name="facebook_application_id" translatable="false">180991423237047</string>
+    <string name="AffList">Liste des Utilisateurs</string>
+    <string name="filter_dialog_title">Filtrer</string>
+    <string name="renvoie">Renvoyer la Bombe</string>
+    <string name="target">Cible</string>
+    <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fb180991423237047</string>
+</resources>
