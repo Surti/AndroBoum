@@ -86,6 +86,7 @@ public class UserListActivity extends AppCompatActivity {
             // le paramètre position contient le numéro de l'item cliqué.
                 Intent intent = new Intent(context,OtherUserActivity.class);
                 intent.putExtra("position",position);
+                intent.putExtra("filter",filterConnected);
                 startActivity(intent);
             }
         });
@@ -96,6 +97,10 @@ public class UserListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_filter:
                 showFilterDialog();
+                return true;
+            case R.id.action_maps:
+                Intent intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 /// aucune action reconnue
@@ -127,6 +132,10 @@ public class UserListActivity extends AppCompatActivity {
                 // et on signale a l'adaptateur qu'il faut remettre
                 // la liste à jour.
                 adapter.notifyDataSetChanged();
+
+
+
+
             }
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             // on a cliqué sur "ok", on ne fait rien.
@@ -167,7 +176,8 @@ public class UserListActivity extends AppCompatActivity {
                 // sinon on reprend la liste complète que l'on avait
                 // sauvegardé dans la variable origListe.
             } else liste = origListe;
-                super.notifyDataSetChanged();
+
+            super.notifyDataSetChanged();
         }
 
         @Override
@@ -187,6 +197,9 @@ public class UserListActivity extends AppCompatActivity {
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference photoRef = storage.getReference().child(p.getEmail() + "/photo.jpg");
+
+            TextView textViewScore = (TextView) layout.findViewById(R.id.ScoreValue);
+            textViewScore.setText(String.valueOf(p.getScore()));
 
             if (photoRef != null) {
                 Glide.with(getContext()).using(new FirebaseImageLoader()).load(photoRef).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE)                                         .placeholder(R.drawable.ic_person_black_24dp)                  .into(imageProfilView);     }

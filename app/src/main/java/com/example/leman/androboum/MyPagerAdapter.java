@@ -1,10 +1,12 @@
 package com.example.leman.androboum;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,13 +54,17 @@ class MyPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
-    private void remplirLayout(ViewGroup layout,Profil p) {
+    private void remplirLayout(ViewGroup layout, final Profil p) {
         ImageView imageView = (ImageView) layout.findViewById(R.id.imageView3);
         ImageView imageView5 = (ImageView) layout.findViewById(R.id.imageView5);
         TextView textView = (TextView) layout.findViewById(R.id.textView3);
+        Button bouton = (Button) layout.findViewById(R.id.BombIt);
         // on télécharge dans le premier composant l'image du profil
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference photoRef = storage.getReference().child(p.getEmail() + "/photo.jpg");
+        TextView textViewScore = (TextView) layout.findViewById(R.id.ScoreValue);
+        textViewScore.setText(String.valueOf(p.getScore()));
+
         if (photoRef != null) {
             Glide.with(context).using(new FirebaseImageLoader())
                     .load(photoRef)
@@ -73,5 +79,25 @@ class MyPagerAdapter extends PagerAdapter {
         // on positionne le email dans le TextView
         textView.setText(p.getEmail());
         Log.v("Androboum", "bingo" +p.getEmail()) ;
+
+
+        bouton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("Bomb","Envoie d'une bombe");
+                Log.v("Bomb",""+p.getEmail());
+                AndroBoumApp.getBomber().setBomb(p, new Bomber.BomberInterface() {
+                    @Override
+                    public void userBombed() {
+                    }
+                    @Override
+                    public void userBomber() {
+                        // on lance l'activité de contrôle de la bombe
+                        Log.v("Bomb","ActivityBombLauch");
+                        Intent intent = new Intent(context, BombActivity.class);
+                        context.startActivity(intent);}
+                });
+            }
+        });
     }
 }

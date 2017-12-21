@@ -8,6 +8,14 @@
     <string name="imageUploaded">Image Uploaded</string>
     <string name="AffList">User List</string>
     <string name="filter_dialog_title">Filter</string>
-    <string name="renvoie">Return the Bomb</string>
     <string name="target">Target</string>
+    <string name="bombedText">You are attack by </string>
+    <string name="source">Bomber</string>
+    <string name="resendBomb">Return the Bomb</string>
+    <string name="nouserresponse">No response from the user</string>
+    <string name="userbusy">User occuped</string>
+    <string name="cantbombme">You can\'t attack yourself</string>
+    <string name="bombexplosed">The bomb exploded!</string>
+    <string name="win">Win !</string>
+    <string name="lost">Loose !</string>
 </resources>

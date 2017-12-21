@@ -17,6 +17,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,8 +34,9 @@ import java.util.List;
 
 public class OtherUserActivity extends AppCompatActivity {
 
-    private final List<Profil> userList = new ArrayList<>();
+    private List<Profil> userList = new ArrayList<>();
     private MyArrayAdapter adapter;
+    private boolean filterConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +51,22 @@ public class OtherUserActivity extends AppCompatActivity {
         // renvoie zéro si ce paramètre n'est pas positionné (ce qui ne devrait
         // pas arriver dans notre cas).
         final int position = intent.getIntExtra("position", 0);
+        filterConnected = intent.getBooleanExtra("filter", false);
+        //Log.v("Test",""+filterConnected);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    userList.add(child.getValue(Profil.class));
+                    if (filterConnected) {
+                        if (child.getValue(Profil.class).isConnected() == true)
+                            userList.add(child.getValue(Profil.class));
+                    }else{
+                        userList.add(child.getValue(Profil.class));
+                    }
                 }
+
                 adapter.notifyDataSetChanged();
                 pager.setCurrentItem(position);
             }

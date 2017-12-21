@@ -31,7 +31,7 @@
     <TextView
         android:id="@+id/MailZoom"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="19dp"
@@ -39,5 +39,26 @@
         app:layout_constraintBottom_toBottomOf="@+id/ProfilZoom"
         app:layout_constraintEnd_toStartOf="@+id/ConnectZoom"
         app:layout_constraintStart_toEndOf="@+id/ProfilZoom"
-        app:layout_constraintTop_toTopOf="@+id/ConnectZoom" />
+        app:layout_constraintTop_toTopOf="@+id/ConnectZoom"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Score :"
+        app:layout_constraintStart_toEndOf="@+id/ProfilZoom"
+        app:layout_constraintTop_toBottomOf="@+id/MailZoom" />
+
+    <TextView
+        android:id="@+id/ScoreValue"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="76dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/ConnectZoom"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
